@@ -25,13 +25,13 @@ def simulate_factor_graph(
         epsilon_p_values[step] = error_p
         epsilon_u_values[step] = error_u
         
-        # 1. phiの更新 (ここは変更なしでOK。誤差の符号が直れば正しく動きます)
+        # 1. phiの更新
         phi = phi + dt * (-error_p + error_u * (2.0 * phi))
         
-        # 2. error_pの更新 (phi - v_p に修正)
+        # 2. error_pの更新
         error_p = error_p + dt * (phi - v_p - sigma_p * error_p)
         
-        # 3. error_uの更新 (u - phi**2 でOK)
+        # 3. error_uの更新
         error_u = error_u + dt * (u - phi**2 - sigma_u * error_u)
     
     times = np.arange(dt, t_end + 0.5 * dt, dt)
